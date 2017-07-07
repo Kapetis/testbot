@@ -20,3 +20,31 @@ server.post('/api/messages', connector.listen());
 var bot = new builder.UniversalBot(connector, function (session) {
     session.send("You said: %s", session.message.text);
 });
+
+
+
+bot.dialog('/waterfall',[
+    function(session, args, next) {
+        session.dialogData.stepone = "Made it through step one." ;
+        next();
+    },
+    function (session, results, next) {
+        session.dialogData.steptwo = "Made it through step two.";
+        next();
+    },
+    function (session,results) {
+        var  mymsg = session.dialogData.stepone + "<br>" + session.dialogData.steptwo + '<br>';
+        session.endDialog(mymsg + "Let's wnd this waterfall and return control to the root dialog :).");
+    }
+]);
+
+
+
+
+
+
+
+
+
+
+
